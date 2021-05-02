@@ -1,4 +1,4 @@
-rootProject.name = '##REPO_NAME##'
+rootProject.name = 'telestion-extension-mavlink'
 
 gradle.ext.sourceCompatibility = '16'
 gradle.ext.targetCompatibility = '16'

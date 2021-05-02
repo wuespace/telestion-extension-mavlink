@@ -6,7 +6,7 @@ plugins {
 var GITHUB_ACTOR = null;
 var GITHUB_TOKEN = null;
 
-group '##GROUP_ID##'
+group 'de.wuespace.telestion.extension.mavlink'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -25,7 +25,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/##REPO_USER##/##REPO_NAME##"
+            url = "https://maven.pkg.github.com/wuespace/telestion-extension-mavlink"
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
@@ -34,8 +34,8 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
-            groupId = '##GROUP_ID##'
-            artifactId = '##REPO_NAME##'
+            groupId = 'de.wuespace.telestion.extension.mavlink'
+            artifactId = 'telestion-extension-mavlink'
             version = System.getenv("VERSION")
 
             from components.java

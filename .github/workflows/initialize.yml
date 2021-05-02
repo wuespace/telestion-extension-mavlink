@@ -1,0 +1,85 @@
+name: Initialize
+
+# Events that trigger this workflow
+on:
+  workflow_dispatch:
+    inputs:
+      group:
+        description: "Gradle Group Name"
+        required: true
+        default: "de.wuespace.telestion.extension.template"
+
+jobs:
+  initialize:
+    name: Initialize the project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Setup environment
+        run: |
+          echo "repo_name=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 2 -)" >> $GITHUB_ENV
+          echo "repo_user=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1 -)" >> $GITHUB_ENV
+          echo "lock_file=${GITHUB_WORKSPACE}/.github/initialized" >> $GITHUB_ENV
+      
+      - name: Check initialization state
+        run: |
+          test ! -f "$LOCK_FILE"
+        env:
+          LOCK_FILE: ${{ env.lock_file }}
+
+      - name: Update settings.gradle
+        run: |
+          sed -i "s/${PLACEHOLDER}/${REPLACE_WITH}/g" "${GITHUB_WORKSPACE}/${FILE}"
+        env:
+          PLACEHOLDER: "##REPO_NAME##"
+          REPLACE_WITH: ${{ env.repo_name }}
+          FILE: "settings.gradle"
+
+      - name: Update group in build.gradle
+        run: |
+          sed -i "s/${PLACEHOLDER}/${REPLACE_WITH}/g" "${GITHUB_WORKSPACE}/${FILE}"
+        env:
+          PLACEHOLDER: "##GROUP_ID##"
+          REPLACE_WITH: ${{ github.event.inputs.group }}
+          FILE: "build.gradle"
+
+      - name: Update repository user in build.gradle
+        run: |
+          sed -i "s/${PLACEHOLDER}/${REPLACE_WITH}/g" "${GITHUB_WORKSPACE}/${FILE}"
+        env:
+          PLACEHOLDER: "##REPO_USER##"
+          REPLACE_WITH: ${{ env.repo_user }}
+          FILE: "build.gradle"
+
+      - name: Update repository name in build.gradle
+        run: |
+          sed -i "s/${PLACEHOLDER}/${REPLACE_WITH}/g" "${GITHUB_WORKSPACE}/${FILE}"
+        env:
+          PLACEHOLDER: "##REPO_NAME##"
+          REPLACE_WITH: ${{ env.repo_name }}
+          FILE: "build.gradle"
+
+      - name: Generate folder structure
+        run: |
+          FOLDERS="$(echo "$GROUP" | sed -e 's/\./\//g')"
+          mkdir -p "${GITHUB_WORKSPACE}/${JAVA_MAIN_SRC}/${FOLDERS}"
+          touch "${GITHUB_WORKSPACE}/${JAVA_MAIN_SRC}/${FOLDERS}/.gitkeep"
+        env:
+          GROUP: ${{ github.event.inputs.group }}
+          JAVA_MAIN_SRC: "src/main/java"
+
+      - name: Initialization finished. Locking action...
+        run: |
+          echo "This project was initialized with Github Actions" > "$LOCK_FILE"
+        env:
+          LOCK_FILE: ${{ env.lock_file }}
+
+      - name: Pushing changes to remote
+        run: |
+          git config --local user.name "${GITHUB_ACTOR}"
+          git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add .
+          git commit -m "feat: Initialize Telestion extension"
+          git push

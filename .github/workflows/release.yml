@@ -1,0 +1,64 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+#
+# Before you use this workflow, please take a short look at the conventional commits specification:
+# https://www.conventionalcommits.org/en/v1.0.0/
+#
+# ******** NOTE ********
+# If your repository default branch is restricted,
+# please use the release-protected-branch workflow instead.
+name: Release
+
+# Events that trigger this workflow
+on: [workflow_dispatch]
+
+jobs:
+  conventional-release:
+    name: Conventional Commit Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 📥
+        uses: actions/checkout@v2.3.4
+
+      - name: Conventional Changelog Action 🎉
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3.7.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-user-name: ${{ github.actor }}
+          git-user-email: '${{ github.actor }}@users.noreply.github.com'
+          release-count: '0'
+          version-file: './project.json'
+          skip-on-empty: 'false'
+
+      - name: Create Release 🪡
+        id: create_release
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          release_name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+
+      - name: Create build environment 🗜
+        run: |
+          echo "tag=${TAG}" >> ./.build-env
+          echo "version=${VERSION}" >> ./.build-env
+          echo "skipped=${SKIPPED}" >> ./.build-env
+          echo "upload_url=${UPLOAD_URL}" >> ./.build-env
+          echo "html_url=${HTML_URL}" >> ./.build-env
+        env:
+          TAG: ${{ steps.changelog.outputs.tag }}
+          VERSION: ${{ steps.changelog.outputs.version }}
+          SKIPPED: ${{ steps.changelog.outputs.skipped }}
+          UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
+          HTML_URL: ${{ steps.create_release.outputs.html_url }}
+
+      - name: Upload build environment 📤
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: build-env
+          path: './.build-env'
+          retention-days: 1

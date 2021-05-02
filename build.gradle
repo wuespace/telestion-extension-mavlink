@@ -3,9 +3,6 @@ plugins {
     id 'maven-publish'
 }
 
-var GITHUB_ACTOR = null;
-var GITHUB_TOKEN = null;
-
 group 'de.wuespace.telestion.extension.mavlink'
 version '1.0-SNAPSHOT'
 
@@ -55,29 +52,9 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    testImplementation "io.vertx:vertx-junit5"
+    testImplementation "org.hamcrest:hamcrest:2.2"
 }
-
-task loadEnvironmentVariables {
-    if (file('.github.credentials').exists()) {
-        file('.github.credentials').readLines().each() {
-            if (!it.isEmpty() && !it.startsWith("#")) {
-                def pos = it.indexOf("=")
-                def key = it.substring(0, pos)
-                def value = it.substring(pos + 1)
-
-                if (key.equals("GITHUB_ACTOR")) {
-                    GITHUB_ACTOR = value
-                }
-
-                if (key.equals("GITHUB_TOKEN")) {
-                    GITHUB_TOKEN = value
-                }
-            }
-        }
-    }
-}
-
-assemble.dependsOn(loadEnvironmentVariables)
 
 test {
     useJUnitPlatform()

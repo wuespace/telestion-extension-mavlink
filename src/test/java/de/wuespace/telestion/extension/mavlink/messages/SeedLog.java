@@ -33,7 +33,7 @@ public record SeedLog(
 
 	@MavArray(length = 247)
 	@MavField(nativeType = NativeType.CHAR)
-	@JsonProperty int[] logData) implements MavlinkMessage {
+	@JsonProperty char[] logData) implements MavlinkMessage {
 	/**
 	 * There shall be no default-constructor for normal developers.
 	 */

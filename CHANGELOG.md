@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.2.0...v0.2.1) (2021-05-04)
+
+
+### Bug Fixes
+
+* Correct bad Daedalus mavlink messages ([60531e0](https://github.com/wuespace/telestion-extension-mavlink/commit/60531e0c6205724d32ec999852d47656dbf8895b))
+
+
+
 # [0.2.0](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.1.0...v0.2.0) (2021-05-04)
 
 

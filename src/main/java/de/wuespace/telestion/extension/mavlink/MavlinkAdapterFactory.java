@@ -1,6 +1,7 @@
 package de.wuespace.telestion.extension.mavlink;
 
 import io.vertx.core.eventbus.EventBus;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * <p>
@@ -44,11 +45,13 @@ public final class MavlinkAdapterFactory {
 	 * @param config which specifies all necessary details for a MavlinkAdapter
 	 */
 	public static void registerNew(EventBus bus, Configuration config) {
-
+		throw new NotImplementedException("Not implemented, yet");
 	}
 
 	/**
 	 * There shall be no objects of this class!
 	 */
-	private MavlinkAdapterFactory() {}
+	private MavlinkAdapterFactory() {
+		throw new NotImplementedException("Not implemented, yet");
+	}
 }

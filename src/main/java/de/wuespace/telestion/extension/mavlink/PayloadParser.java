@@ -1,25 +1,24 @@
 package de.wuespace.telestion.extension.mavlink;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.wuespace.telestion.extension.mavlink.parsing.DefaultParsers;
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Promise;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.wuespace.telestion.api.config.Config;
 import de.wuespace.telestion.api.message.JsonMessage;
 import de.wuespace.telestion.extension.mavlink.annotation.MavArray;
 import de.wuespace.telestion.extension.mavlink.annotation.MavField;
 import de.wuespace.telestion.extension.mavlink.exception.AnnotationMissingException;
 import de.wuespace.telestion.extension.mavlink.message.internal.ValidatedMavlinkPacket;
+import de.wuespace.telestion.extension.mavlink.parsing.DefaultParsers;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Promise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.RecordComponent;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 /**
  * @author Cedric Boes
@@ -29,6 +28,8 @@ public final class PayloadParser extends AbstractVerticle {
 
 	@Override
 	public void start(Promise<Void> startPromise) {
+		config = Config.get(config, config(), Configuration.class);
+
 		vertx.eventBus().consumer(config.inAddress(), msg -> {
 			JsonMessage.on(ValidatedMavlinkPacket.class, msg, validatedMavlink -> {
 				var clazz = validatedMavlink.clazz();
@@ -94,6 +95,10 @@ public final class PayloadParser extends AbstractVerticle {
 		private Configuration() {
 			this(null, null);
 		}
+	}
+
+	public PayloadParser() {
+		this(null);
 	}
 
 	/**
@@ -179,7 +184,7 @@ public final class PayloadParser extends AbstractVerticle {
 	 * A configuration which specifies this in and out address for this verticle.<br>
 	 * This can also be loaded from a config.
 	 */
-	private final Configuration config;
+	private Configuration config;
 
 	/**
 	 *

@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.2.1...v0.2.2) (2021-05-05)
+
+
+### Bug Fixes
+
+* Allow proper config loading ([94c84e7](https://github.com/wuespace/telestion-extension-mavlink/commit/94c84e7c38897d9d63a294f5091b1089b5e32a60))
+
+
+
 ## [0.2.1](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.2.0...v0.2.1) (2021-05-04)
 
 

@@ -8,9 +8,8 @@ import de.wuespace.telestion.api.message.JsonMessage;
  * that a packet was a MAVLink-packet.<br>
  * The record also contains information about the success of the parsing-process of the validator.
  *
- * @param raw bytes of the {@link de.wuespace.telestion.services.connection.rework.ConnectionData ConnectionData}
+ * @param raw     bytes of the {@link de.wuespace.telestion.services.connection.rework.ConnectionData ConnectionData}
  * @param success if the validation process was successful
- *
  * @author Cedric Boes
  * @version 1.0
  * @see de.wuespace.telestion.extension.mavlink.Validator

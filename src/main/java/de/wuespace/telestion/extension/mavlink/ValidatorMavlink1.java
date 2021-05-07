@@ -40,9 +40,9 @@ public final class ValidatorMavlink1 extends AbstractVerticle {
 	/**
 	 * Config-Class which can be used to create a new {@link ValidatorMavlink1}.
 	 *
-	 * @param inAddress {@link #inAddress}
+	 * @param inAddress        {@link #inAddress}
 	 * @param packetOutAddress {@link #packetOutAddress}
-	 * @param parserInAddress {@link #parserInAddress}
+	 * @param parserInAddress  {@link #parserInAddress}
 	 */
 	public final record Configuration(@JsonProperty String inAddress,
 									  @JsonProperty String packetOutAddress,
@@ -70,7 +70,6 @@ public final class ValidatorMavlink1 extends AbstractVerticle {
 	}
 
 	/**
-	 *
 	 * @param inAddress
 	 * @param packetOutAddress
 	 * @param parserInAddress

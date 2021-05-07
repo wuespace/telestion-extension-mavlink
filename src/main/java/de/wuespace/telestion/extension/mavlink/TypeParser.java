@@ -1,12 +1,10 @@
 package de.wuespace.telestion.extension.mavlink;
 
 /**
- *
  * @param <T>
  */
 public interface TypeParser<T> {
 	/**
-	 *
 	 * @param payload
 	 * @param arraySize
 	 * @return
@@ -16,7 +14,6 @@ public interface TypeParser<T> {
 	}
 
 	/**
-	 *
 	 * @param payload
 	 * @param arraySize
 	 * @param offset

@@ -56,9 +56,9 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 	/**
 	 * Config-Class which can be used to create a new {@link ValidatorMavlink2}.
 	 *
-	 * @param inAddress {@link #inAddress}
+	 * @param inAddress        {@link #inAddress}
 	 * @param packetOutAddress {@link #packetOutAddress}
-	 * @param parserInAddress {@link #parserInAddress}
+	 * @param parserInAddress  {@link #parserInAddress}
 	 */
 	public final record Configuration(@JsonProperty String inAddress,
 									  @JsonProperty String packetOutAddress,
@@ -88,7 +88,6 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 	}
 
 	/**
-	 *
 	 * @param inAddress
 	 * @param packetOutAddress
 	 * @param parserInAddress
@@ -151,8 +150,8 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 
 				try {
 					state = Arrays.equals(MavV2Signator.rawSignature(safe.getSecretKey(),
-								Arrays.copyOfRange(raw, 0, 10), payload, annotation.crc(), linkId, timeStamp),
-								sign);
+							Arrays.copyOfRange(raw, 0, 10), payload, annotation.crc(), linkId, timeStamp),
+							sign);
 				} catch (NoSuchAlgorithmException e) {
 					logger.error("Specified Encryption Algorithm not found! This means that all received packets " +
 							"with signatures will be rejected!", e);
@@ -166,7 +165,7 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 			if (X25Checksum.calculate(Arrays.copyOfRange(raw, 0, length + 10),
 					annotation.crc()) != (checksum[0] >> 8) + checksum[1]) {
 				logger.info("Checksum of received MavlinkV2-packet invalid!");
-				//vertx.eventBus().publish(getPacketOutAddress(), new RawMavlinkPacket(raw, false).json());
+				//vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false).json());
 				//return;
 			}
 

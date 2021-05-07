@@ -5,8 +5,6 @@ import io.vertx.core.Promise;
 import io.vertx.core.eventbus.Message;
 
 /**
- *
- *
  * @author Cedric Boes
  * @version 1.0
  */
@@ -25,11 +23,11 @@ public abstract class Validator extends AbstractVerticle {
 
 	/**
 	 * <p>
-	 *     Each Mavlink-Validator must be able to handle incoming messages to separate the payload from its header.
+	 * Each Mavlink-Validator must be able to handle incoming messages to separate the payload from its header.
 	 * </p>
 	 * <p>
-	 *     It must be noted though that the incoming messages are not checked for validation and might not be
-	 *     Mavlink-packages in the first place.
+	 * It must be noted though that the incoming messages are not checked for validation and might not be
+	 * Mavlink-packages in the first place.
 	 * </p>
 	 *
 	 * @param msg raw message which is unchecked
@@ -66,9 +64,9 @@ public abstract class Validator extends AbstractVerticle {
 	/**
 	 * Creates a new {@link Validator} with the given information.
 	 *
-	 * @param inAddress {@link #inAddress}
+	 * @param inAddress        {@link #inAddress}
 	 * @param packetOutAddress {@link #packetOutAddress}
-	 * @param parserInAddress {@link #parserInAddress}
+	 * @param parserInAddress  {@link #parserInAddress}
 	 */
 	public Validator(String inAddress, String packetOutAddress, String parserInAddress) {
 		this.inAddress = inAddress;

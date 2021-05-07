@@ -87,7 +87,8 @@ public final class MavlinkFile {
 	}
 
 	public void write(MavlinkFileEntry entry) throws IOException {
-		var fw = new FileWriter(file, ENCODING);
+	    file.getParentFile().mkdirs();
+	    var fw = new FileWriter(file, ENCODING);
 
 		var raw = new String(entry.rawMessage(), ENCODING);
 		raw = raw.replace(ign, ign + ign);

@@ -110,7 +110,8 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 
 			logger.debug("MavlinkV2-packet received");
 
-			var raw = IntStream.range(0, 10).map(i -> Byte.toUnsignedInt(rawBytes[i])).toArray();
+			// 0 Byte is unnecessary but makes parsing easier because you can follow the MAVLink serialization steps
+			var raw = IntStream.range(0, 7).map(i -> Byte.toUnsignedInt(rawBytes[i])).toArray();
 			var length = raw[1];
 
 			// It can be greater if e.g. the packet length is smaller than the raw stream input
@@ -166,24 +167,7 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 				}
 			}
 
-//			System.out.println((((int) checksum[0]) << 8) + " " + ((int) checksum[0])+128 + " " + checksum[1]);
-
-			System.out.printf("%08X %n", (int) checksum[0]);
-			System.out.printf("%08X %n", (int) checksum[1]);
-
-			int part1 = (((int) checksum[1]) & 0xFF);
-			int part2 = (((int) checksum[0]) & 0xFF);
-
-//			int messageChecksum = (((int) checksum[1]) << 8) + ((int) checksum[0]) & 0xFFFF;
-			int messageChecksum = ((part1 << 8) ^ part2) & 0xFFFF;
-
-			System.out.printf("Message checksum    %08X %n", messageChecksum);
-			System.out.printf("Calculated checksum %08X %n", X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()));
-
-			System.out.println(messageChecksum);
-
-//			int checksumToCompare =
-			System.out.println(X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()));
+			int messageChecksum = ((Byte.toUnsignedInt(checksum[1]) << 8) ^ Byte.toUnsignedInt(checksum[0])) & 0xffff;
 
 			if (X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()) != messageChecksum) {
 				logger.info("Checksum of received MavlinkV2-packet invalid");

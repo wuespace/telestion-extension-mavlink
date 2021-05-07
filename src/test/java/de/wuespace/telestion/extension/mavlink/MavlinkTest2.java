@@ -3,7 +3,6 @@ package de.wuespace.telestion.extension.mavlink;
 import de.wuespace.telestion.api.message.JsonMessage;
 import de.wuespace.telestion.extension.mavlink.annotation.MavInfo;
 import de.wuespace.telestion.extension.mavlink.message.MavlinkMessage;
-import de.wuespace.telestion.extension.mavlink.messages.Drehtest;
 import de.wuespace.telestion.extension.mavlink.messages.SeedHeartbeat;
 import de.wuespace.telestion.extension.mavlink.messages.SeedLog;
 import de.wuespace.telestion.extension.mavlink.messages.SeedSystemT;
@@ -34,7 +33,7 @@ public class MavlinkTest2 {
 	@Test
 	public void testRoundTrip(Vertx vertx, VertxTestContext testContext) throws Throwable {
 		logger.info("Registering all Mavlink-Messages");
-		Stream.of(Drehtest.class, SeedHeartbeat.class, SeedLog.class, SeedSystemT.class).forEach(c -> {
+		Stream.of(SeedHeartbeat.class, SeedLog.class, SeedSystemT.class).forEach(c -> {
 			if (!c.isAnnotationPresent(MavInfo.class)) {
 				testContext.failNow("Message " + c.getName() + " does not have mandatory MavInfo!");
 			}
@@ -67,16 +66,14 @@ public class MavlinkTest2 {
 
 		vertx.eventBus().consumer("parserOut", raw -> {
 			JsonMessage.on(MavlinkMessage.class, raw, msg -> {
-				if (msg instanceof Drehtest drehtest) {
-					System.out.println("Drehtest: " + drehtest.json());
-				} else if (msg instanceof SeedLog log) {
+				if (msg instanceof SeedLog log) {
 					System.out.println("Log: " + log.json());
 				} else if (msg instanceof SeedHeartbeat beat) {
 					System.out.println("Heartbeat: " + beat.json());
 				} else if (msg instanceof SeedSystemT systemT) {
 					System.out.println("SystemT: " + systemT.json());
 				} else {
-					testContext.failNow("Unknown Mavlink-Message received!");
+					testContext.failNow("Unknown MAVLink-Message received!");
 					return;
 				}
 				testContext.completeNow();
@@ -84,7 +81,7 @@ public class MavlinkTest2 {
 		});
 		logger.info("Reading input file");
 		System.out.println(new File("messages_raw.txt").getAbsolutePath());
-		var bytes = Files.readAllBytes(Path.of("src/test/message_raw.txt"));
+		var bytes = Files.readAllBytes(Path.of("src/test/message.txt"));
 		logger.info("Finished loading prerequisites");
 
 		Thread.sleep(Duration.ofSeconds(1).toMillis()); // To ensure everything works

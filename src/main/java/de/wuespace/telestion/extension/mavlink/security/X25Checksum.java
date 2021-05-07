@@ -34,10 +34,10 @@ public final class X25Checksum {
 	 * @return checksum composed from a prior checksum and a byte of data
 	 */
 	public static int calculate(int data, int currentCrc) {
-		data = data ^ (currentCrc & 0xff);
-		data ^= (data << 4) & 0xff;
+		data ^= (currentCrc & 0xff);
+		data ^= (data << 4);
 		data &= 0xff;
-		return (((currentCrc >> 8) ^ (data << 8) ^ (data << 3) ^ (data >> 4))) & 0xffff;
+		return (((currentCrc >> 8) ^ (data << 8) ^ (data << 3) ^ (data >> 4)));
 	}
 
 	/**
@@ -59,7 +59,7 @@ public final class X25Checksum {
 	 * Calculates the CRC X.25-checksum for a given payload array and the right crc-extra extra byte.<br>
 	 *
 	 * @param payload data to calculate the checksum for
-	 * @param crc crc-byte which must be added
+	 * @param crc     crc-byte which must be added
 	 * @return checksum for the payload
 	 */
 	public static int calculate(byte[] payload, int crc) {

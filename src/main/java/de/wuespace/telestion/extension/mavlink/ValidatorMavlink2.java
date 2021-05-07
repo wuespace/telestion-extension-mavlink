@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * @author Cedric Boes
@@ -99,21 +100,23 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 
 	private void handleMessage(Message<?> msg) {
 		JsonMessage.on(ConnectionData.class, msg, packet -> {
-			var raw = packet.rawData();
+			var rawBytes = packet.rawData();
+
 
 			// Checking raw packet constraints and if the packet is a MAVLinkV2 packet
-			if (!(raw != null && raw.length > 11 && raw[0] == (byte) 0xFD)) {
+			if (!(rawBytes != null && rawBytes.length > 11 && rawBytes[0] == (byte) 0xFD)) {
 				return;
 			}
 
 			logger.debug("MavlinkV2-packet received");
 
+			var raw = IntStream.range(0, 10).map(i -> Byte.toUnsignedInt(rawBytes[i])).toArray();
 			var length = raw[1];
 
 			// It can be greater if e.g. the packet length is smaller than the raw stream input
-			if (raw.length - 12 - length < 0) {
+			if (rawBytes.length - 12 - length < 0) {
 				logger.info("Broken MavlinkV2-packet received!");
-				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false));
+				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, false).json());
 				return;
 			}
 
@@ -122,27 +125,27 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 			var seq = raw[4];
 			var sysId = raw[5];
 			var compId = raw[6];
-			var msgId = (((int) raw[9]) << 16) + (((int) raw[8]) << 8) + (int) raw[7]; // todo: null check
-			var payload = Arrays.copyOfRange(raw, 10, 10 + length);
-			var checksum = Arrays.copyOfRange(raw, 10 + length, 10 + length + 2);
+			var msgId = ((rawBytes[9]) << 16) + ((rawBytes[8]) << 8) + rawBytes[7]; // todo: null check
+			var payload = Arrays.copyOfRange(rawBytes, 10, 10 + length);
+			var checksum = Arrays.copyOfRange(rawBytes, 10 + length, 10 + length + 2);
 
 			var clazz = MessageIndex.get(msgId);
 			if (!clazz.isAnnotationPresent(MavInfo.class)) {
 				logger.warn("Annotation missing for {} (MavlinkV2)!", clazz.getName());
-				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false).json());
+				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, false).json());
 				return;
 			}
 			var annotation = clazz.getAnnotation(MavInfo.class);
 
 			// Currently supported incompatibility flags
 			if (incompatFlags == 0x01) {
-				if (raw.length >= 10 + length + 2 + 13) {
+				if (rawBytes.length >= 10 + length + 2 + 13) {
 					logger.info("Broken MavlinkV2-packet received!");
-					vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false).json());
+					vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, false).json());
 					return;
 				}
 
-				var rawSign = Arrays.copyOfRange(raw, 10 + length + 2, 10 + length + 2 + 13);
+				var rawSign = Arrays.copyOfRange(rawBytes, 10 + length + 2, 10 + length + 2 + 13);
 				var linkId = rawSign[0];
 				var timeStamp = Arrays.copyOfRange(rawSign, 1, 7);
 				var sign = Arrays.copyOfRange(rawSign, 7, 13);
@@ -151,26 +154,28 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 
 				try {
 					state = Arrays.equals(MavV2Signator.rawSignature(safe.getSecretKey(),
-								Arrays.copyOfRange(raw, 0, 10), payload, annotation.crc(), linkId, timeStamp),
-								sign);
+							Arrays.copyOfRange(rawBytes, 0, 10), payload, annotation.crc(), linkId, timeStamp),
+							sign);
 				} catch (NoSuchAlgorithmException e) {
 					logger.error("Specified Encryption Algorithm not found! This means that all received packets " +
 							"with signatures will be rejected!", e);
 				}
 				if (!state) {
-					vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false).json());
+					vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, false).json());
 					return;
 				}
 			}
 
-			if (X25Checksum.calculate(Arrays.copyOfRange(raw, 0, length + 10),
-					annotation.crc()) != (checksum[0] >> 8) + checksum[1]) {
+			System.out.println((((int) checksum[0]) << 8) + " " + checksum[1]);
+			System.out.println(X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()));
+
+			if (X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()) != (checksum[0] << 8) + checksum[1]) {
 				logger.info("Checksum of received MavlinkV2-packet invalid!");
-				//vertx.eventBus().publish(getPacketOutAddress(), new RawMavlinkPacket(raw, false).json());
-				//return;
+				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, false).json());
+				return;
 			}
 
-			vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, true).json());
+			vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, true).json());
 
 			var mavInfo = new Mavlink2Information(incompatFlags, compatFlags, seq, sysId, compId);
 			vertx.eventBus().publish(config.parserInAddress(),

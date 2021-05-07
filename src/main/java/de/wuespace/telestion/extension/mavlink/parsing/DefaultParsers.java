@@ -24,9 +24,9 @@ public class DefaultParsers {
 	}
 
 	private static Object parse(Function<byte[], ?> parser, byte[] payload, int arraySize, int offset,
-										   NativeType nativeType) {
+								NativeType nativeType) {
 		var objects = IntStream.range(0, arraySize == 0 ? 1 : arraySize)
-				.mapToObj(i -> parser.apply(Arrays.copyOfRange(payload, offset + i,offset + nativeType.size + i))).toArray();
+				.mapToObj(i -> parser.apply(Arrays.copyOfRange(payload, offset + i, offset + nativeType.size + i))).toArray();
 
 		var type = objects[0].getClass();
 		var array = Array.newInstance(type, objects.length);

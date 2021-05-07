@@ -57,7 +57,7 @@ public class InvalidChecksumException extends RuntimeException {
 	 * @see RuntimeException#RuntimeException(String, Throwable, boolean, boolean)
 	 */
 	public InvalidChecksumException(String message, Throwable cause, boolean enableSuppression,
-			boolean writableStackTrace) {
+									boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

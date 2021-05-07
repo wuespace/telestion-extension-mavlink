@@ -3,13 +3,11 @@ package de.wuespace.telestion.extension.mavlink.message;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- *
  * @param incompatFlags
  * @param compatFlags
  * @param seqNum
  * @param sysId
  * @param compId
- *
  * @author Cedric Boes
  * @version 1.0
  */

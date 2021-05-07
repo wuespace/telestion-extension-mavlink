@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /**
  * @author Cedric Boes
@@ -39,7 +40,7 @@ public final class PayloadParser extends AbstractVerticle {
 				try {
 					components = Arrays.stream(components).sorted(PayloadParser::compareRecordComponents)
 							.toArray(RecordComponent[]::new);
-				} catch(AnnotationMissingException e) {
+				} catch (AnnotationMissingException e) {
 					logger.error("Parsing packet failed!" +
 							"At least one Record-Component of Mavlink-message {} does not have the required " +
 							"@MavField annotation!", clazz.getName());
@@ -69,7 +70,7 @@ public final class PayloadParser extends AbstractVerticle {
 
 					var instance = constructor.newInstance(objs);
 					vertx.eventBus().publish(getOutAddress(), instance.json());
-				} catch(Exception e) {
+				} catch (Exception e) {
 					logger.error("Parsing packet payload failed due to an unexpected error!", e);
 				}
 			});
@@ -102,7 +103,6 @@ public final class PayloadParser extends AbstractVerticle {
 	}
 
 	/**
-	 *
 	 * @param inAddress
 	 * @param outAddress
 	 * @param parser
@@ -112,7 +112,6 @@ public final class PayloadParser extends AbstractVerticle {
 	}
 
 	/**
-	 *
 	 * @param config
 	 */
 	public PayloadParser(Configuration config) {
@@ -120,7 +119,6 @@ public final class PayloadParser extends AbstractVerticle {
 	}
 
 	/**
-	 *
 	 * @param config
 	 * @param parser
 	 */

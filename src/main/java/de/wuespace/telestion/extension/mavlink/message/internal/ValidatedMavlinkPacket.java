@@ -9,7 +9,6 @@ import de.wuespace.telestion.extension.mavlink.message.PacketInformation;
  * @param payload
  * @param clazz
  * @param info
- *
  * @author Cedric Boes
  * @version 1.0
  */

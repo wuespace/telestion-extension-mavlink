@@ -59,7 +59,7 @@ public class AnnotationMissingException extends RuntimeException {
 	 * @see RuntimeException#RuntimeException(String, Throwable, boolean, boolean)
 	 */
 	public AnnotationMissingException(String message, Throwable cause, boolean enableSuppression,
-			boolean writableStackTrace) {
+									  boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

@@ -9,13 +9,22 @@ import io.vertx.core.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 public class RawSafer extends AbstractVerticle {
 	@Override
 	public void start(Promise<Void> startPromise) {
 		var config = Config.get(forcedConfig, config(), Configuration.class);
 
-		vertx.eventBus().consumer(config.inAddress(), raw -> JsonMessage.on(raw, RawMavlinkPacket.class, msg -> {
-
+		vertx.eventBus().consumer(config.inAddress(), raw -> JsonMessage.on(RawMavlinkPacket.class, raw, msg -> {
+			var file = MavlinkFile.getTimeBasedFile(config.filePath());
+			logger.debug("Saving {} MAVLink message to {}", msg.success() ? "" : "broken", file.getAbsolutePath());
+			try {
+				file.write(MavlinkFile.createEntry(msg.raw(), msg.success()));
+				logger.debug("Saving raw MAVLink packet successful");
+			} catch(IOException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+				logger.warn("Saving raw MAVLink packet failed", e);
+			}
 		}));
 
 		startPromise.complete();
@@ -28,14 +37,13 @@ public class RawSafer extends AbstractVerticle {
 
 	public record Configuration(@JsonProperty String inAddress,
 								@JsonProperty String outAddress,
-								@JsonProperty String filePath,
-								@JsonProperty boolean timeStamps) {
+								@JsonProperty String filePath) {
 		/**
 		 * For json-loading.
 		 */
 		@SuppressWarnings("unused")
 		private Configuration() {
-			this(null, null, null, false);
+			this(null, null, null);
 		}
 	}
 
@@ -43,8 +51,8 @@ public class RawSafer extends AbstractVerticle {
 		this.forcedConfig = config;
 	}
 
-	public RawSafer(String inAddress, String outAddress, String filePath, boolean timeStamps) {
-		this(new Configuration(inAddress, outAddress, filePath, timeStamps));
+	public RawSafer(String inAddress, String outAddress, String filePath) {
+		this(new Configuration(inAddress, outAddress, filePath));
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(RawSafer.class);

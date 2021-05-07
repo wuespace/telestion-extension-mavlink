@@ -1,4 +1,4 @@
-package de.wuespace.telestion.extension.mavlink.safer;
+package de.wuespace.telestion.extension.mavlink.logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.wuespace.telestion.api.message.JsonMessage;

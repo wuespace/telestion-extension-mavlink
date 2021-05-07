@@ -1,4 +1,4 @@
-package de.wuespace.telestion.extension.mavlink.safer;
+package de.wuespace.telestion.extension.mavlink.logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.wuespace.telestion.api.config.Config;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class RawSafer extends AbstractVerticle {
+public class RawLogger extends AbstractVerticle {
 	@Override
 	public void start(Promise<Void> startPromise) {
 		var config = Config.get(forcedConfig, config(), Configuration.class);
@@ -47,15 +47,15 @@ public class RawSafer extends AbstractVerticle {
 		}
 	}
 
-	public RawSafer(Configuration config) {
+	public RawLogger(Configuration config) {
 		this.forcedConfig = config;
 	}
 
-	public RawSafer(String inAddress, String outAddress, String filePath) {
+	public RawLogger(String inAddress, String outAddress, String filePath) {
 		this(new Configuration(inAddress, outAddress, filePath));
 	}
 
-	private final Logger logger = LoggerFactory.getLogger(RawSafer.class);
+	private final Logger logger = LoggerFactory.getLogger(RawLogger.class);
 
 	private Configuration forcedConfig;
 }

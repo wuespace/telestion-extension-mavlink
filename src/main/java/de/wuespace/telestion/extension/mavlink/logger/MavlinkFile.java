@@ -1,4 +1,4 @@
-package de.wuespace.telestion.extension.mavlink.safer;
+package de.wuespace.telestion.extension.mavlink.logger;
 
 import java.io.*;
 import java.nio.charset.Charset;

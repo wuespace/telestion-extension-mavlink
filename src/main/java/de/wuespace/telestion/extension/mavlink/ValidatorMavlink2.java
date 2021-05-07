@@ -166,11 +166,27 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 				}
 			}
 
-			System.out.println((((int) checksum[0]) << 8) + " " + checksum[1]);
+//			System.out.println((((int) checksum[0]) << 8) + " " + ((int) checksum[0])+128 + " " + checksum[1]);
+
+			System.out.printf("%08X %n", (int) checksum[0]);
+			System.out.printf("%08X %n", (int) checksum[1]);
+
+			int part1 = (((int) checksum[1]) & 0xFF);
+			int part2 = (((int) checksum[0]) & 0xFF);
+
+//			int messageChecksum = (((int) checksum[1]) << 8) + ((int) checksum[0]) & 0xFFFF;
+			int messageChecksum = ((part1 << 8) ^ part2) & 0xFFFF;
+
+			System.out.printf("Message checksum    %08X %n", messageChecksum);
+			System.out.printf("Calculated checksum %08X %n", X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()));
+
+			System.out.println(messageChecksum);
+
+//			int checksumToCompare =
 			System.out.println(X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()));
 
-			if (X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()) != (checksum[0] << 8) + checksum[1]) {
-				logger.info("Checksum of received MavlinkV2-packet invalid!");
+			if (X25Checksum.calculate(Arrays.copyOfRange(rawBytes, 1, length + 10), annotation.crc()) != messageChecksum) {
+				logger.info("Checksum of received MavlinkV2-packet invalid");
 				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(rawBytes, false).json());
 				return;
 			}

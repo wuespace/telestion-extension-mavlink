@@ -45,7 +45,7 @@ public final class MavV2Signator {
 	 */
 	public static byte[] getTimestamp() {
 		OffsetDateTime dt = OffsetDateTime.now(ZoneOffset.UTC);
-		long time = ((dt.toEpochSecond() - secondJan2015) * 1_000_000 + (int) dt.toInstant().getNano() / 1_000) / 10;
+		long time = ((dt.toEpochSecond() - secondJan2015) * 1_000_000 + dt.toInstant().getNano() / 1_000) / 10;
 
 		return new byte[] { (byte) ((time >> 40) & 0xff), (byte) ((time >> 32) & 0xff), (byte) ((time >> 24) & 0xff),
 				(byte) ((time >> 16) & 0xff), (byte) ((time >> 8) & 0xff), (byte) (time & 0xff) };

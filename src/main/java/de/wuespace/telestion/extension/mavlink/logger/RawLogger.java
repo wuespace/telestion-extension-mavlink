@@ -46,6 +46,10 @@ public class RawLogger extends AbstractVerticle {
 		}
 	}
 
+	public RawLogger() {
+		this(null);
+	}
+
 	public RawLogger(Configuration config) {
 		this.forcedConfig = config;
 	}

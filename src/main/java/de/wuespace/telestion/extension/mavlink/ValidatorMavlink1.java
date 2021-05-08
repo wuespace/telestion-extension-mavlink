@@ -113,9 +113,11 @@ public final class ValidatorMavlink1 extends AbstractVerticle {
 			}
 			var annotation = clazz.getAnnotation(MavInfo.class);
 
-			if (X25Checksum.calculate(payload, annotation.crc()) != checksum[0] << 8 + checksum[1]) {
-				logger.info("Checksum of received MavlinkV1-packet invalid!");
-				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false));
+			int messageChecksum = ((Byte.toUnsignedInt(checksum[1]) << 8) ^ Byte.toUnsignedInt(checksum[0])) & 0xffff;
+
+			if (X25Checksum.calculate(Arrays.copyOfRange(raw, 1, length + 6), annotation.crc()) != messageChecksum) {
+				logger.info("Checksum of received MavlinkV2-packet invalid");
+				vertx.eventBus().publish(config.packetOutAddress(), new RawMavlinkPacket(raw, false).json());
 				return;
 			}
 

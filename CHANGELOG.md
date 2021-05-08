@@ -1,3 +1,12 @@
+## [0.3.4](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.3...v0.3.4) (2021-05-08)
+
+
+### Bug Fixes
+
+* Create folder ([4dcec7a](https://github.com/wuespace/telestion-extension-mavlink/commit/4dcec7af25dfa78825cb89ced22616bd70ea8770))
+
+
+
 ## [0.3.3](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.2...v0.3.3) (2021-05-08)
 
 

@@ -87,7 +87,6 @@ public final class MavlinkFile {
 	}
 
 	public void write(MavlinkFileEntry entry) throws IOException {
-	    file.getParentFile().mkdirs();
 	    var fw = new FileWriter(file, ENCODING);
 
 		var raw = new String(entry.rawMessage(), ENCODING);
@@ -96,6 +95,7 @@ public final class MavlinkFile {
 		raw = raw.replace(bs, ign + bs);
 
 		fw.write(entry.timeInfo() + DATA_SEP + raw + DATA_SEP + (entry.success() ? 1 : 0) + BATCH_SEP);
+		fw.close();
 	}
 
 	public String getAbsolutePath() {

@@ -1,5 +1,8 @@
 package de.wuespace.telestion.extension.mavlink.logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -87,6 +90,11 @@ public final class MavlinkFile {
 	}
 
 	public void write(MavlinkFileEntry entry) throws IOException {
+		if (!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+			logger.debug("Created " + file.getParentFile());
+		}
+
 	    var fw = new FileWriter(file, ENCODING);
 
 		var raw = new String(entry.rawMessage(), ENCODING);
@@ -115,6 +123,8 @@ public final class MavlinkFile {
 	}
 
 	private final File file;
+	private final Logger logger = LoggerFactory.getLogger(MavlinkFile.class);
+
 	private static final DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern(FILE_DATE_FORMAT);
 	private static final DateTimeFormatter entryDateFormatter = DateTimeFormatter.ofPattern(ENTRY_TIME_FORMAT);
 	private static final String ign = String.valueOf(IGNORE_CHAR);

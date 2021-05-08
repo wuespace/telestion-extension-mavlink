@@ -1,3 +1,12 @@
+## [0.3.3](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.2...v0.3.3) (2021-05-08)
+
+
+### Bug Fixes
+
+* Date-problems with the raw logger ([baefe1a](https://github.com/wuespace/telestion-extension-mavlink/commit/baefe1aa4f29a8a4098fa8519f8e23a645909250))
+
+
+
 ## [0.3.2](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.1...v0.3.2) (2021-05-08)
 
 

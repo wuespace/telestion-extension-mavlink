@@ -1,3 +1,12 @@
+## [0.3.5](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.4...v0.3.5) (2021-05-08)
+
+
+### Bug Fixes
+
+* **logger:** Append to file instead of override ([a868577](https://github.com/wuespace/telestion-extension-mavlink/commit/a8685776065858246110c971297a78a54d32b583))
+
+
+
 ## [0.3.4](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.3...v0.3.4) (2021-05-08)
 
 

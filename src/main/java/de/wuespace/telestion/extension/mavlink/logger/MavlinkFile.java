@@ -5,8 +5,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -103,11 +103,11 @@ public final class MavlinkFile {
 	}
 
 	public static MavlinkFileEntry createEntry(byte[] rawBytes, boolean success) {
-		return new MavlinkFileEntry(entryDateFormatter.format(LocalTime.now()), rawBytes, success);
+		return new MavlinkFileEntry(LocalDateTime.now().format(entryDateFormatter), rawBytes, success);
 	}
 
 	public static MavlinkFile getTimeBasedFile(String path) {
-		return getTimeBasedFile(path, fileDateFormatter.format(LocalTime.now()));
+		return getTimeBasedFile(path, LocalDateTime.now().format(fileDateFormatter));
 	}
 
 	public static MavlinkFile getTimeBasedFile(String path, String time) {
@@ -115,8 +115,8 @@ public final class MavlinkFile {
 	}
 
 	private final File file;
-	private static final SimpleDateFormat fileDateFormatter = new SimpleDateFormat(FILE_DATE_FORMAT);
-	private static final SimpleDateFormat entryDateFormatter = new SimpleDateFormat(ENTRY_TIME_FORMAT);
+	private static final DateTimeFormatter fileDateFormatter = DateTimeFormatter.ofPattern(FILE_DATE_FORMAT);
+	private static final DateTimeFormatter entryDateFormatter = DateTimeFormatter.ofPattern(ENTRY_TIME_FORMAT);
 	private static final String ign = String.valueOf(IGNORE_CHAR);
 	private static final String ds = String.valueOf(DATA_SEP);
 	private static final String bs = String.valueOf(BATCH_SEP);

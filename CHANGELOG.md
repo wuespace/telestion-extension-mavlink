@@ -1,3 +1,14 @@
+## [0.3.1](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.0...v0.3.1) (2021-05-08)
+
+
+### Bug Fixes
+
+* Calculate checksum correctly in MAVLink V1 as well ([b2fcd43](https://github.com/wuespace/telestion-extension-mavlink/commit/b2fcd4372895fb0c4584f8fd62cf12c201b7668e))
+* Close mavlink-file after writing ([9e48e94](https://github.com/wuespace/telestion-extension-mavlink/commit/9e48e94db570d39d1d2a1049c5fe0d20cc23ec55))
+* Delete outputAddress for MAVLink-Logger ([c3bbd97](https://github.com/wuespace/telestion-extension-mavlink/commit/c3bbd97a8c770b0f24a06a3503fbf0e18551661f))
+
+
+
 # [0.3.0](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.2.2...v0.3.0) (2021-05-08)
 
 

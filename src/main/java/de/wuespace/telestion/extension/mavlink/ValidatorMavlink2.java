@@ -31,11 +31,7 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 	public void start(Promise<Void> startPromise) {
 		var config = Config.get(this.config, config(), Configuration.class);
 
-		if (config != this.config) {
-			safe.deleteKey();
-			safe = new SecretKeySafe(config.password());
-		}
-
+		safe = new SecretKeySafe(config.password());
 		this.config = config;
 
 		vertx.eventBus().consumer(config.inAddress(), this::handleMessage);
@@ -85,7 +81,6 @@ public final class ValidatorMavlink2 extends AbstractVerticle {
 	 */
 	public ValidatorMavlink2(Configuration config) {
 		this.config = config;
-		this.safe = new SecretKeySafe(this.config.password());
 	}
 
 	/**

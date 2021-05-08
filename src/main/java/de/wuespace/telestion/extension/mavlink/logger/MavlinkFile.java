@@ -95,7 +95,7 @@ public final class MavlinkFile {
 			logger.debug("Created " + file.getParentFile());
 		}
 
-	    var fw = new FileWriter(file, ENCODING);
+	    var fw = new FileWriter(file, ENCODING, true);
 
 		var raw = new String(entry.rawMessage(), ENCODING);
 		raw = raw.replace(ign, ign + ign);

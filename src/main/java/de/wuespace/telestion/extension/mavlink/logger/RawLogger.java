@@ -36,14 +36,13 @@ public class RawLogger extends AbstractVerticle {
 	}
 
 	public record Configuration(@JsonProperty String inAddress,
-								@JsonProperty String outAddress,
 								@JsonProperty String filePath) {
 		/**
 		 * For json-loading.
 		 */
 		@SuppressWarnings("unused")
 		private Configuration() {
-			this(null, null, null);
+			this(null, null);
 		}
 	}
 
@@ -52,7 +51,7 @@ public class RawLogger extends AbstractVerticle {
 	}
 
 	public RawLogger(String inAddress, String outAddress, String filePath) {
-		this(new Configuration(inAddress, outAddress, filePath));
+		this(new Configuration(inAddress, filePath));
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(RawLogger.class);

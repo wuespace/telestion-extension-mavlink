@@ -1,3 +1,13 @@
+## [0.3.2](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.1...v0.3.2) (2021-05-08)
+
+
+### Bug Fixes
+
+* Add default constructor for RawLogger ([9323c6a](https://github.com/wuespace/telestion-extension-mavlink/commit/9323c6a98477523200345b67e6e7b5b29e24c93c))
+* Remove potential NullPointerException if not forcing config in ValidatorMavlink2 ([38616a7](https://github.com/wuespace/telestion-extension-mavlink/commit/38616a7ec4dcdcfcbcebe0bd0ff3ab17dade6145))
+
+
+
 ## [0.3.1](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.0...v0.3.1) (2021-05-08)
 
 

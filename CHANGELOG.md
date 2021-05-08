@@ -1,3 +1,19 @@
+# [0.3.0](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.2.2...v0.3.0) (2021-05-08)
+
+
+### Bug Fixes
+
+* Change name ([3984ea8](https://github.com/wuespace/telestion-extension-mavlink/commit/3984ea86c3d282aa770ad19581643025b5825923))
+* Create parent directories for mavlink-files if not existing ([72af5eb](https://github.com/wuespace/telestion-extension-mavlink/commit/72af5eb970adcd874317152379347b149a9638f9))
+
+
+### Features
+
+* Add basic structure of MAVLink safer module ([2d4d97b](https://github.com/wuespace/telestion-extension-mavlink/commit/2d4d97baafc374c1495af5a54d60c2a1f02aad60))
+* Add functionality to MAVLink safer module ([ec2afbf](https://github.com/wuespace/telestion-extension-mavlink/commit/ec2afbff83f6d9a2cc976a32262daf74487acbe8))
+
+
+
 ## [0.2.2](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.2.1...v0.2.2) (2021-05-05)
 
 

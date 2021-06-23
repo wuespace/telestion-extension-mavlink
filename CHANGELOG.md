@@ -1,3 +1,12 @@
+## [0.3.6](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.5...v0.3.6) (2021-06-23)
+
+
+### Bug Fixes
+
+* Delete one redundant NativeType.java + Update deps ([9c7cc67](https://github.com/wuespace/telestion-extension-mavlink/commit/9c7cc67a8f6ee9f90283560023a5dc17e625af07))
+
+
+
 ## [0.3.5](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.4...v0.3.5) (2021-05-08)
 
 

@@ -1,6 +1,6 @@
 package de.wuespace.telestion.extension.mavlink.parsing;
 
-import de.wuespace.telestion.extension.mavlink.NativeType;
+import de.wuespace.telestion.extension.mavlink.annotation.NativeType;
 import de.wuespace.telestion.extension.mavlink.TypeParser;
 import org.apache.commons.lang3.ArrayUtils;
 

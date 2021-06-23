@@ -46,7 +46,7 @@ dependencies {
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
 
     implementation "io.vertx:vertx-core:4.0.3"
-    testImplementation "io.vertx:vertx-junit5:4.0.3"
+    testImplementation "io.vertx:vertx-junit5:4.1.0"
 
     implementation 'de.wuespace.telestion:telestion-api:1.0.0'
     implementation 'de.wuespace.telestion:telestion-services:1.0.0'

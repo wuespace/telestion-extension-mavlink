@@ -1,11 +1,10 @@
 package de.wuespace.telestion.extension.mavlink.messages;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.wuespace.telestion.extension.mavlink.annotation.MavField;
 import de.wuespace.telestion.extension.mavlink.annotation.MavInfo;
-import de.wuespace.telestion.extension.mavlink.NativeType;
+import de.wuespace.telestion.extension.mavlink.annotation.NativeType;
 import de.wuespace.telestion.extension.mavlink.message.MavlinkMessage;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *  Contains the whole Seeds system_t information + local time + state.<br>

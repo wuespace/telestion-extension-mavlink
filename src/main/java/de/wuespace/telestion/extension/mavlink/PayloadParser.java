@@ -5,6 +5,7 @@ import de.wuespace.telestion.api.config.Config;
 import de.wuespace.telestion.api.message.JsonMessage;
 import de.wuespace.telestion.extension.mavlink.annotation.MavArray;
 import de.wuespace.telestion.extension.mavlink.annotation.MavField;
+import de.wuespace.telestion.extension.mavlink.annotation.NativeType;
 import de.wuespace.telestion.extension.mavlink.exception.AnnotationMissingException;
 import de.wuespace.telestion.extension.mavlink.message.internal.ValidatedMavlinkPacket;
 import de.wuespace.telestion.extension.mavlink.parsing.DefaultParsers;
@@ -19,7 +20,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 /**
  * @author Cedric Boes

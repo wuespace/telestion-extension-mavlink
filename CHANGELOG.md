@@ -1,3 +1,12 @@
+## [0.3.7](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.6...v0.3.7) (2021-07-08)
+
+
+### Bug Fixes
+
+* Update telestion-core dependencies ([3601e46](https://github.com/wuespace/telestion-extension-mavlink/commit/3601e4689b6fcb6cc8c075aafcbce148aa49f2a5))
+
+
+
 ## [0.3.6](https://github.com/wuespace/telestion-extension-mavlink/compare/v0.3.5...v0.3.6) (2021-06-23)
 
 

@@ -1,0 +1,15 @@
+# This file is a simple text file that gives attributes to path names in git.
+# https://help.github.com/articles/dealing-with-line-endings/
+
+# only edit text files
+* text=auto
+
+# These are explicitly windows files and should use crlf
+*.bat           text eol=crlf
+
+# binaries
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

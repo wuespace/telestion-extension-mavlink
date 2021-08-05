@@ -1,5 +1,17 @@
 # Contributing Guidelines
 
+## Telestion Core packages
+
+To download and use the [telestion-core](https://github.com/wuespace/telestion-core) packages, please create a
+[personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+with the `packages:read` scope.
+Next, copy the `gradle.properties.example` configuration file and name it `gradle.properties`.
+Now fill in your GitHub username and the previously created PAT.
+No worry, this file will not be committed at any time!
+
+Finally, synchronize gradle to automatically download and set up the
+[telestion-core](https://github.com/wuespace/telestion-core) packages.
+
 ## Intended Release Cycle
 
 When you want to release a new application, go to the _Actions_ Tab in the GitHub UI and choose the `Release` Action.

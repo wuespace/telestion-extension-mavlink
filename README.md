@@ -156,7 +156,7 @@ and stores it in time-tagged files in the predefined path. (here `data/mavlink-l
 ## Generating Mavlink Messages
 
 To generate the Mavlink messages from the Mavlink xml definitions,
-you can use the [`xmlmav.py`](scripts/xmlmav.py) python script.
+you can use the [`xmlmav.py`](scripts/xml2mav.py) python script.
 It takes one or more definition files and outputs valid Java classes
 which you can import and them directly in your project.
 

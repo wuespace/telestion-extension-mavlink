@@ -39,8 +39,8 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
-            groupId = 'de.wuespace.telestion.extension.mavlink'
-            artifactId = 'telestion-extension-mavlink'
+            groupId = 'de.wuespace.telestion.extension'
+            artifactId = 'mavlink'
             version = System.getenv("VERSION")
 
             from components.java

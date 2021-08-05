@@ -4,7 +4,6 @@ plugins {
 }
 
 group 'de.wuespace.telestion.extension.mavlink'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -16,6 +15,15 @@ repositories {
             password = System.getenv("GITHUB_TOKEN") == null ? GITHUB_TOKEN : System.getenv("GITHUB_TOKEN")
         }
     }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
 }
 
 publishing {

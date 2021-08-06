@@ -20,9 +20,13 @@ public interface MavlinkMessage extends JsonMessage {
 	 * Checks if the necessary {@link MavInfo MavInfo-Annotation} is present.<br>
 	 * If so a representing Object will be returned otherwise an {@link AnnotationMissingException} will be thrown.
 	 *
+	 * <p>
+	 * <strong>Implementation Node:</strong>
+	 * Should not be overwritten
+	 * </p>
+	 *
 	 * @return {@link MavInfo} of this class if present
 	 * @throws AnnotationMissingException if {@link MavInfo} is not present
-	 * @implNote Should not be overwritten!
 	 */
 	@JsonProperty(access = Access.READ_ONLY)
 	default MavInfo checkAnnotation() {
@@ -42,8 +46,12 @@ public interface MavlinkMessage extends JsonMessage {
 	 * <a href="https://mavlink.io/en/guide/serialization.html#crc_extra">
 	 * https://mavlink.io/en/guide/serialization.html#crc_extra</a>
 	 *
+	 * <p>
+	 * <strong>Implementation Node:</strong>
+	 * Should not be overwritten
+	 * </p>
+	 *
 	 * @return CRC_EXTRA-Byte for the {@link MavlinkMessage}
-	 * @implNote Should not be overwritten!
 	 */
 	@JsonProperty(access = Access.READ_ONLY)
 	default int getCrc() {
@@ -57,8 +65,12 @@ public interface MavlinkMessage extends JsonMessage {
 	 * For more information see:<br>
 	 * <a href="https://mavlink.io/en/guide/serialization.html">https://mavlink.io/en/guide/serialization.html</a>
 	 *
+	 * <p>
+	 * <strong>Implementation Node:</strong>
+	 * Should not be overwritten
+	 * </p>
+	 *
 	 * @return id of the {@link MavlinkMessage}
-	 * @implNote Should not be overwritten!
 	 */
 	@JsonProperty(access = Access.READ_ONLY)
 	default int getId() {

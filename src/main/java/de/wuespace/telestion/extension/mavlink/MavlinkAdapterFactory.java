@@ -11,10 +11,10 @@ import org.apache.commons.lang3.NotImplementedException;
  * </p>
  * <p>
  * Part of a correctly working MavlinkAdapter are usually:
- *     <ul>
- *         <li>{@link Validator}</li>
- *     </ul>
  * </p>
+ * <ul>
+ *     <li>{@link Validator}</li>
+ * </ul>
  *
  * @author Cedric Boes
  * @version 1.0
@@ -36,10 +36,10 @@ public final class MavlinkAdapterFactory {
 	 * </p>
 	 * <p>
 	 * Modules which will be created and registered:
-	 *     <ul>
-	 *         <li>{@link Validator}</li>
-	 *     </ul>
 	 * </p>
+	 * <ul>
+	 *     <li>{@link Validator}</li>
+	 * </ul>
 	 *
 	 * @param bus    {@link EventBus} on which the modules should be registered
 	 * @param config which specifies all necessary details for a MavlinkAdapter

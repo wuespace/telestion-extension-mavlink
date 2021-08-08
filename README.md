@@ -44,7 +44,7 @@ You will need:
 
 The `Mavlink Validator` verticles for `Mavlink v1` and `Mavlink v2` validate the incoming encoded mavlink message
 and sends it to the parser on a valid mavlink message.
-Additionally, all encoded messages are sent to the `Mavlink Logger`
+Additionally, all encoded messages can be sent to the `Mavlink Logger`, if set up,
 which stores the encoded or raw version in the preconfigured data file.
 
 A `Mavlink v2 Validator` configuration could look like:

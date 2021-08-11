@@ -1,0 +1,8 @@
+de.wuespace.telestion.extension.mavlink
+de.wuespace.telestion.extension.mavlink.annotation
+de.wuespace.telestion.extension.mavlink.exception
+de.wuespace.telestion.extension.mavlink.logger
+de.wuespace.telestion.extension.mavlink.message
+de.wuespace.telestion.extension.mavlink.message.internal
+de.wuespace.telestion.extension.mavlink.parsing
+de.wuespace.telestion.extension.mavlink.security

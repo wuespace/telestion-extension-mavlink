@@ -9,13 +9,11 @@
 # After this step, overwrite the default GITHUB_TOKEN environment variable with the created PAT
 # in the gradle build and test steps.
 name: CI
-
-# Events that trigger this workflow
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build packages
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 📥
@@ -35,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.READ_PACKAGES }}
 
   test:
-    name: Test packages
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 📥
@@ -58,3 +56,10 @@ jobs:
         run: ./gradlew test
         env:
           GITHUB_TOKEN: ${{ secrets.READ_PACKAGES }}
+
+      - name: Upload Test Report 📠
+        uses: scacap/action-surefire-report@v1.0.13
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

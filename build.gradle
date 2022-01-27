@@ -7,14 +7,6 @@ group 'de.wuespace.telestion.extension.mavlink'
 
 repositories {
     mavenCentral()
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/wuespace/telestion-core/")
-        credentials {
-            username = System.getenv("GITHUB_ACTOR") == null ? GITHUB_ACTOR : System.getenv("GITHUB_ACTOR")
-            password = System.getenv("GITHUB_TOKEN") == null ? GITHUB_TOKEN : System.getenv("GITHUB_TOKEN")
-        }
-    }
 }
 
 java {
@@ -56,8 +48,8 @@ dependencies {
     implementation "io.vertx:vertx-core:4.2.4"
     testImplementation "io.vertx:vertx-junit5:4.2.4"
 
-    implementation 'de.wuespace.telestion:telestion-api:0.5.0'
-    implementation 'de.wuespace.telestion:telestion-services:0.5.0'
+    implementation 'de.wuespace.telestion:telestion-api:0.7.0'
+    implementation 'de.wuespace.telestion:telestion-services:0.7.0'
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
@@ -65,7 +57,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
-    testImplementation "org.mockito:mockito-core:4.+"
+    testImplementation 'org.mockito:mockito-core:4.2.0'
 }
 
 test {

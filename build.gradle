@@ -49,7 +49,7 @@ dependencies {
     testImplementation "io.vertx:vertx-junit5:4.2.5"
 
     implementation 'de.wuespace.telestion:telestion-api:0.8.1'
-    implementation 'de.wuespace.telestion:telestion-services:0.7.1'
+    implementation 'de.wuespace.telestion:telestion-services:0.8.1'
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 

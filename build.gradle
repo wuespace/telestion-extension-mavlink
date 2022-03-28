@@ -48,7 +48,7 @@ dependencies {
     implementation "io.vertx:vertx-core:4.2.6"
     testImplementation "io.vertx:vertx-junit5:4.2.6"
 
-    implementation 'de.wuespace.telestion:telestion-api:0.8.1'
+    implementation 'de.wuespace.telestion:telestion-api:0.9.0'
     implementation 'de.wuespace.telestion:telestion-services:0.8.1'
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'

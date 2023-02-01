@@ -43,7 +43,7 @@ publishing {
 dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.6'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.5'
-    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.1.1'
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.2'
 
     implementation "io.vertx:vertx-core:4.3.7"
     testImplementation "io.vertx:vertx-junit5:4.2.7"
